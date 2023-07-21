@@ -13,3 +13,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Убираем внешние отступы */
+/* body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li {
+  margin: 0;
+} */
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+li {
+  list-style-type: none;
+  /* Убираем маркеры */
+}
+
+a:hover {
+  color: orange;
+}
+
+a:active {
+  color: orange;
+}
