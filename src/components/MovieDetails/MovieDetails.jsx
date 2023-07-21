@@ -1,12 +1,14 @@
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { detailsMovie } from 'services/detailsMovie';
 import { MovieCard } from 'components/MovieCard/MovieCard';
 import { List, LinkTo } from './MovieDetails.styled';
+import { Suspense } from 'react';
 
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const { movieId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getInfoMovie() {
@@ -19,9 +21,12 @@ const MovieDetails = () => {
     }
 
     getInfoMovie();
-  }, []);
+  }, [movieId]);
   return (
     <div>
+      <button type="button" onClick={() => navigate('/')}>
+        go to back
+      </button>
       {movieDetails && <MovieCard movie={movieDetails} />}
       <List>
         <li>
@@ -31,7 +36,9 @@ const MovieDetails = () => {
           <LinkTo to={'reviews'}>Reviews</LinkTo>
         </li>
       </List>
-      <Outlet></Outlet>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
