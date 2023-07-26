@@ -10,6 +10,12 @@ const Movies = () => {
   const [moviesData, setMoviesData] = useState(null);
 
   useEffect(() => {
+    const query = searchParams.get('query') === '';
+
+    if (query) {
+      return;
+    }
+
     setQueryParam(searchParams.get('query') || '');
     const fetchData = async () => {
       try {

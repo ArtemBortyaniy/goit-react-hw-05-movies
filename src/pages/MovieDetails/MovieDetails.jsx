@@ -1,14 +1,15 @@
-import { Outlet, useParams, useNavigate } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { detailsMovie } from 'services/detailsMovie';
 import { MovieCard } from 'components/MovieCard/MovieCard';
 import { List, LinkTo } from './MovieDetails.styled';
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const { movieId } = useParams();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     async function getInfoMovie() {
@@ -24,9 +25,7 @@ const MovieDetails = () => {
   }, [movieId]);
   return (
     <div>
-      <button type="button" onClick={() => navigate('/')}>
-        go to back
-      </button>
+      <LinkTo to={backLinkHref.current}>Go to back</LinkTo>
       {movieDetails && <MovieCard movie={movieDetails} />}
       <List>
         <li>
