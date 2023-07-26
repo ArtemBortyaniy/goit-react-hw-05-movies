@@ -18,7 +18,7 @@ const Cast = () => {
     }
 
     getCreditsMovie();
-  }, []);
+  }, [movieId]);
   return <div>{creditsMovie && <CastList data={creditsMovie} />}</div>;
 };
 

@@ -4,7 +4,7 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
 import { Title } from './Home.styled';
 
 const Home = () => {
-  const [trendingData, setTrendingData] = useState(null);
+  const [trendingData, setTrendingData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <div>
       <Title>Trending Today</Title>
-      <MoviesList movies={trendingData} path={'movies/'} />
+      <MoviesList movies={trendingData} />
     </div>
   );
 };

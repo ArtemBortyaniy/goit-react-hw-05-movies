@@ -18,7 +18,7 @@ const Reviews = () => {
     }
 
     getReviewsMovie();
-  }, []);
+  }, [movieId]);
   return <div> {reviewsMovie && <ReviewsList data={reviewsMovie} />}</div>;
 };
 

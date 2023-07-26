@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { serchFilmQuery } from 'services/serchFilmQuery';
+import SearchForm from 'components/SearchForm/SearchForm';
 import { MoviesList } from 'components/MoviesList/MoviesList';
-import { Form, Input, Button } from './Movies.styled';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,32 +16,22 @@ const Movies = () => {
         const response = await serchFilmQuery(queryParam);
 
         setMoviesData(response.data.results);
-        setQueryParam('');
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, [searchParams]);
+  }, [queryParam, searchParams]);
 
-  const handleInputChange = e => {
-    setQueryParam(e.target.value);
-  };
-
-  const handleFormSubmit = e => {
-    e.preventDefault();
+  const handleFormSubmit = queryParam => {
     setSearchParams({ query: queryParam });
+    setQueryParam(queryParam);
   };
 
   return (
     <div>
-      <Form onSubmit={handleFormSubmit}>
-        <label>
-          <Input type="text" value={queryParam} onChange={handleInputChange} />
-        </label>
-        <Button type="submit">Search</Button>
-      </Form>
+      <SearchForm onSumbit={handleFormSubmit} />
       {moviesData && <MoviesList movies={moviesData}></MoviesList>}
     </div>
   );
