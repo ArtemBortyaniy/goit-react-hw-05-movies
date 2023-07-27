@@ -6,20 +6,18 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [queryParam, setQueryParam] = useState(searchParams.get('query') || '');
   const [moviesData, setMoviesData] = useState(null);
 
   useEffect(() => {
-    const query = searchParams.get('query') === '';
+    const query = searchParams.get('query');
 
-    if (query) {
+    if (!query) {
       return;
     }
 
-    setQueryParam(searchParams.get('query') || '');
     const fetchData = async () => {
       try {
-        const response = await serchFilmQuery(queryParam);
+        const response = await serchFilmQuery(query);
 
         setMoviesData(response.data.results);
       } catch (error) {
@@ -28,17 +26,16 @@ const Movies = () => {
     };
 
     fetchData();
-  }, [queryParam, searchParams]);
+  }, [searchParams]);
 
   const handleFormSubmit = queryParam => {
     setSearchParams({ query: queryParam });
-    setQueryParam(queryParam);
   };
-  
+
   return (
     <div>
       <SearchForm onSumbit={handleFormSubmit} />
-      {moviesData && <MoviesList movies={moviesData}></MoviesList>}
+      {moviesData && <MoviesList movies={moviesData} />}
     </div>
   );
 };

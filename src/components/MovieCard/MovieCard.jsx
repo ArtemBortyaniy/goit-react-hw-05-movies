@@ -11,7 +11,11 @@ export function MovieCard({ movie }) {
   return (
     <Container>
       <img
-        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+            : 'https://img.freepik.com/free-photo/army-soldiers-fighting-with-guns-and-defending-their-country_1303-26673.jpg?size=626&ext=jpg'
+        }
         alt={movie.tagline}
       />
       <TextContainer>
