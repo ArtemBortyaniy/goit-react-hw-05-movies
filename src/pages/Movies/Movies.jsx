@@ -34,7 +34,7 @@ const Movies = () => {
     setSearchParams({ query: queryParam });
     setQueryParam(queryParam);
   };
-
+  
   return (
     <div>
       <SearchForm onSumbit={handleFormSubmit} />
